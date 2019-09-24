@@ -2,6 +2,7 @@ package com.unittesting.unittesting.business;
 
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -50,7 +51,7 @@ public class ListMockTest {
 	@Test
 	public void verificationBasics() {
 		
-		//SUT
+		//SUT: system under test
 		String value1 = mock.get(0);
 		String value2 = mock.get(1);
 		
@@ -62,8 +63,40 @@ public class ListMockTest {
 		verify(mock, atLeast(1)).get(anyInt());
 		verify(mock, atLeastOnce()).get(anyInt());
 		verify(mock, atMost(2)).get(anyInt());
-		verify(mock, never()).get(2);
+		verify(mock, never()).get(2);		// verifica si nunca se llamo con este argumento
+		
+	}
+	
+	@Test
+	public void argumentCapturing() {
+		
+		//SUT: system under test
+		mock.add("SomeString");
+		
+		//Verification /* captura el parametro especifico que se pasa a un metodo */ 
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(mock).add(captor.capture());
+		
+		assertEquals("SomeString", captor.getValue());
 		
 	}
 
+	@Test
+	public void multipleArgumentCapturing() {
+		
+		//SUT: system under test
+		mock.add("SomeString1");
+		mock.add("SomeString2");
+		
+		//Verification /* captura el parametro especifico que se pasa a un metodo */ 
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+//		verify(mock).add(captor.capture());  // si se usa asi falla porque verifica que se llama una vez por default
+		verify(mock, times(2)).add(captor.capture());
+		
+		List<String> allValues = captor.getAllValues();
+		assertEquals("SomeString1", allValues.get(0));
+		assertEquals("SomeString2", allValues.get(1));
+
+		
+	}
 }
