@@ -1,6 +1,5 @@
 package com.unittesting.unittesting.controller;
 
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,29 +14,30 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.unittesting.unittesting.HelloWorldController;
+import com.unittesting.unittesting.ItemController;
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(HelloWorldController.class)
-public class HelloWorldControllerTest {
+@WebMvcTest(ItemController.class)
+public class ItemControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@Test
-	public void helloWorldController_basic() throws Exception {
+	public void dummyItem_basic() throws Exception {
 		// Que hacer:
 		
-		// call GET route "/hello-world"  application/json y luego 
+		// call GET route "/dummy-item"  application/json y luego 
 		RequestBuilder request = MockMvcRequestBuilders
-				.get("/hello-world")
+				.get("/dummy-item")
 				.accept(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(request)
 				.andExpect(status().isOk())		// se puede utilizar status().is(200)
-				.andExpect(content().string("Hello World"))
-				.andReturn();
+				//.andExpect(content().string("{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}")) // si se usa string la comparacion es exacta
+				.andExpect(content().json("{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}")) // con json pueden haber algunos espacios 
+				.andReturn();																			 // incluso se pueden comparar algunas propiedades
 		
 		// verify la respueata es "Hello World" , no es necesrio el assert porque 
 		// la respuesta es muy simple sy se hace arriba
