@@ -1,11 +1,23 @@
 package com.unittesting.unittesting.model;
 
-public class Item {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
+@Entity
+public class Item {
+	
+	@Id
 	private int id;
+
 	private String name;
+
 	private int price;
+
 	private int quantity;
+
+	@Transient
+	private int value;
 
 	public int getId() {
 		return id;
@@ -39,6 +51,14 @@ public class Item {
 		this.quantity = quantity;
 	}
 
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 	public Item(int id, String name, int price, int quantity) {
 		this.id = id;
 		this.name = name;
@@ -46,17 +66,16 @@ public class Item {
 		this.quantity = quantity;
 
 	}
-	
+
 	/* constructor vacio */
-	public Item() {		
+	public Item() {
 	}
 
 	@Override
 	public String toString() {
 		return String.format("Item[%d, %s, %d, %d]", id, name, price, quantity);
-		//return "Item [id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + "]";
+		// return "Item [id=" + id + ", name=" + name + ", price=" + price + ",
+		// quantity=" + quantity + "]";
 	}
-	
-	
 
 }
