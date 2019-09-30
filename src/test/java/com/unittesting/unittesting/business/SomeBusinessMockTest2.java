@@ -9,8 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import business.SomeBusinessImpl;
-import data.SomeDataService;
+import com.unittesting.unittesting.data.SomeDataService;
+
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class SomeBusinessMockTest2 {

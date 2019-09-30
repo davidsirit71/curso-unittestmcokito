@@ -4,8 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import business.SomeBusinessImpl;
-import data.SomeDataService;
+import com.unittesting.unittesting.data.SomeDataService;
+
+
 
 class SomeDataServiceStub implements SomeDataService {
 

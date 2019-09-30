@@ -3,13 +3,13 @@ package com.unittesting.unittesting.business;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import com.unittesting.unittesting.data.ItemRepository;
 import com.unittesting.unittesting.model.Item;
 
-import data.ItemRepository;
 
-@Service
+@Component
 public class ItemBusinessService {
 	
 	@Autowired
@@ -21,7 +21,9 @@ public class ItemBusinessService {
 	
 	public List<Item> retriveAllItems(){
 		List<Item> items = itemRepository.findAll();
-		
+		for(Item item: items) {
+			item.setValue(item.getPrice() * item.getQuantity());
+		}		
 		return items;
 		
 	}

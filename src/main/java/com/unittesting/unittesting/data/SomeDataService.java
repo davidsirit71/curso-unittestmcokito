@@ -1,4 +1,4 @@
-package data;
+package com.unittesting.unittesting.data;
 
 public interface SomeDataService {
 

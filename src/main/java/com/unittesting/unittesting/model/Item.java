@@ -19,6 +19,17 @@ public class Item {
 	@Transient
 	private int value;
 
+	/* constructor vacio */
+	protected Item() {}
+	
+	public Item(int id, String name, int price, int quantity) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -59,17 +70,7 @@ public class Item {
 		this.value = value;
 	}
 
-	public Item(int id, String name, int price, int quantity) {
-		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
 
-	}
-
-	/* constructor vacio */
-	public Item() {
-	}
 
 	@Override
 	public String toString() {

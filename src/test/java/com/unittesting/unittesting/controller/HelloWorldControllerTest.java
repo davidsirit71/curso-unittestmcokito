@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.unittesting.unittesting.HelloWorldController;
-
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HelloWorldController.class)

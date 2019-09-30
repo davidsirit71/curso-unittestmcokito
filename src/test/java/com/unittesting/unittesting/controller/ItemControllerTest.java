@@ -4,6 +4,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -17,7 +19,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.unittesting.unittesting.ItemController;
 import com.unittesting.unittesting.business.ItemBusinessService;
 import com.unittesting.unittesting.model.Item;
 
@@ -58,10 +59,8 @@ public class ItemControllerTest {
 	
 	@Test
 	public void itemFromBussinessService_basic() throws Exception {
-		
 		when(businessService.retrieveHardcodedItem()).thenReturn(new Item(2, "Item2", 10, 10)); // esto es proque no interesa 
 																							    // la logica de servico en este test
-		
 		RequestBuilder request = MockMvcRequestBuilders
 				.get("/item-from-business-service")
 				.accept(MediaType.APPLICATION_JSON);
@@ -71,7 +70,23 @@ public class ItemControllerTest {
 				.andExpect(content().json("{id: 2, name: Item2, price: 10}")) 
 				.andReturn();
 		
+	}
+	
+	@Test
+	public void retirveAllItems_basic() throws Exception {
+		when(businessService.retriveAllItems()).thenReturn(
+				Arrays.asList(new Item(2, "Item2", 10, 10))); 
+															
+		RequestBuilder request = MockMvcRequestBuilders
+				.get("/all-items-from-database")
+				.accept(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().isOk())		
+				.andExpect(content().json("[{id: 2, name: Item2, price: 10}]")) 
+				.andReturn();
 		
 	}
+
 
 }

@@ -1,4 +1,4 @@
-package com.unittesting.unittesting;
+package com.unittesting.unittesting.controller;
 
 import java.util.List;
 
